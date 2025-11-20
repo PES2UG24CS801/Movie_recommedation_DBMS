@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="section-title">🎬 Movies</h2>
+
+<form method="get" action="{{ url_for('movies') }}" class="filter-form">
+  <label>Filter by genre:</label>
+  <select name="genre" onchange="this.form.submit()">
+    <option value="">All</option>
+    {% for g in genres %}
+      <option value="{{ g }}" {% if selected_genre==g %}selected{% endif %}>{{ g }}</option>
+    {% endfor %}
+  </select>
+</form>
+
+<div class="movie-grid">
+  {% for m in movies %}
+    <div class="movie-card">
+      <img class="poster" src="{{ url_for('static', filename='posters/' + (m.poster_path or 'placeholder.jpg')) }}" alt="{{ m.title }}">
+      <strong>{{ m.title }}</strong><br>
+      <small>{{ m.genre }} • {{ m.release_year or '' }}</small>
+      <p id="rating-{{ m.movie_id }}">⭐ {{ "%.2f"|format(m.avg_rating or 0) }} ({{ m.ratings_count or 0 }})</p>
+
+      {% if session.get('user_id') %}
+        <div class="rating-box">
+          <label>Rate:</label>
+          <select data-movie="{{ m.movie_id }}" onchange="submitRating(this.dataset.movie, this.value)">
+            <option value="">--</option>
+            {% for i in [5,4.5,4,3.5,3,2.5,2,1.5,1,0.5] %}
+              <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      {% else %}
+        <a href="{{ url_for('login') }}" class="login-btn">Login to Rate</a>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+
+<script>
+async function submitRating(movie_id, rating){
+  if(!rating) return;
+  const form = new FormData();
+  form.append('movie_id', movie_id);
+  form.append('rating', rating);
+  const res = await fetch('/rate', {method:'POST', body: form});
+  if(res.ok){
+    const mres = await fetch('/api/movie/' + movie_id);
+    if(mres.ok){
+      const data = await mres.json();
+      const el = document.getElementById('rating-' + movie_id);
+      if(el) el.textContent = `⭐ ${data.avg_rating.toFixed(2)} (${data.ratings_count})`;
+    }
+  } else {
+    alert('Error rating movie');
+  }
+}
+</script>
+{% endblock %}

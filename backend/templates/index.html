@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="section-title">🔥 Top Picks</h2>
+<div class="movie-grid">
+  {% for m in movies %}
+    <div class="movie-card">
+      <img class="poster" src="{{ url_for('static', filename='posters/' + (m.poster_path or 'placeholder.jpg')) }}" alt="{{ m.title }}">
+      <div class="movie-info">
+        <strong>{{ m.title }}</strong><br>
+        <small>{{ m.genre }} • {{ m.release_year }}</small>
+        <p>⭐ {{ "%.2f"|format(m.avg_rating or 0) }} ({{ m.ratings_count or 0 }})</p>
+        <a class="btn" href="{{ url_for('movies') }}">See more</a>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

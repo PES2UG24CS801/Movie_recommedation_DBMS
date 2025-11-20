@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="section-title">⭐ Your Recommendations</h2>
+
+<a href="{{ url_for('custom_recommendations') }}" class="btn btn-primary mb-3">
+  View Custom Recommendations
+</a>
+
+
+{% if recs %}
+  <div class="movie-grid">
+    {% for r in recs %}
+    <div class="movie-card">
+      <img class="poster" src="{{ url_for('static', filename='posters/' + (r.poster_path or 'placeholder.jpg')) }}" alt="{{ r.title }}">
+      <div class="movie-info">
+        <strong>{{ r.title }}</strong><br>
+        <small>{{ r.genre }}</small>
+        <p>⭐ {{ "%.2f"|format(r.avg_rating or 0) }}</p>
+
+        {% if r.reason %}
+        <p class="reason">🎯 {{ r.reason }}</p>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="empty-msg">No recommendations yet. Rate a few movies to get personalized recs 🎥</p>
+{% endif %}
+{% endblock %}

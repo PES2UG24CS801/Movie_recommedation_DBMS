@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="auth-container">
+  <div class="auth-box">
+    <div class="project-title">🎬 CineScope</div>
+    <h2>Register</h2>
+    <form method="post">
+      <input name="username" placeholder="Username" required>
+      <input name="email" type="email" placeholder="Email" required>
+      <input name="password" type="password" placeholder="Password" required>
+      <button type="submit" class="auth-btn">Register</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

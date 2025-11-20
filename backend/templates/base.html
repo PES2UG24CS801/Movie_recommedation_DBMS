@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CineScope</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <!-- 🔝 Navigation Bar -->
+  <nav class="navbar">
+    <div class="brand">🎞️ CineScope</div>
+    <div class="nav-links">
+      <button><a href="{{ url_for('home') }}">Home</a></button>
+      <button><a href="{{ url_for('movies') }}">Movies</a></button>
+      {% if session.get('user_id') %}
+        <button><a href="{{ url_for('recommendations') }}">Recommendations</a></button>
+        <span class="welcome">Hi, {{ session.get('username') }}</span>
+        <button><a href="{{ url_for('logout') }}" class="logout-btn">Logout</a></button>
+      {% else %}
+        <button><a href="{{ url_for('login') }}">Login</a></button>
+        <button><a href="{{ url_for('register') }}">Register</a></button>
+      {% endif %}
+    </div>
+  </nav>
+
+  <div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, msg in messages %}
+          <div class="card">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>

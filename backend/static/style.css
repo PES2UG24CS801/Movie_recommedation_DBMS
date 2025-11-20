@@ -1,0 +1,388 @@
+/* ===== 🎞️ CineScope / Netflix-Inspired CSS ===== */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+  --primary-color: #e50914;
+  --secondary-color: #141414;
+  --accent-color: #b81d24;
+  --text-light: #ffffff;
+  --text-gray: #aaaaaa;
+  --card-bg: #1f1f1f;
+  --glow: 0 0 15px rgba(229, 9, 20, 0.6);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), rgba(10, 10, 10, 0.95)),
+              url('../static/netflix-bg.gif') no-repeat center center fixed;
+  background-size: cover;
+  color: var(--text-light);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* 🔥 NAVBAR THEME — Netflix Cinematic Look */
+.navbar {
+  background: linear-gradient(90deg, #000000 0%, #141414 100%);
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 15px rgba(255, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  height: 100px;
+}
+
+.brand {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 2px;
+  color: #e50914;
+  text-shadow: 0 0 10px rgba(229, 9, 20, 0.8);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-links button {
+  background: transparent;
+  border: 2px solid #e50914;
+  border-radius: 8px;
+  padding: 8px 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.nav-links button a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+}
+
+.nav-links button:hover {
+  background: #e50914;
+  box-shadow: 0 0 15px #e50914;
+  transform: translateY(-2px);
+}
+
+.nav-links button a:hover {
+  color: #fff;
+}
+
+/* Logout & Welcome Text */
+.welcome {
+  color: #fff;
+  font-size: 1rem;
+  margin-left: 15px;
+  font-family: 'Poppins', sans-serif;
+  opacity: 0.9;
+}
+
+/* Make sure everything aligns */
+button a {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Responsive Nav */
+@media (max-width: 768px) {
+  .nav-links {
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+}
+
+/* ===== 🎥 Movie Grid ===== */
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2rem;
+  padding: 3rem;
+  justify-items: center;
+}
+
+.movie-card {
+  background: linear-gradient(145deg, #1b1b1b, #0f0f0f);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  max-width: 260px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+}
+
+.movie-card:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 0 25px rgba(229, 9, 20, 0.7);
+}
+
+.movie-card img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  filter: brightness(0.9);
+  transition: filter 0.3s ease;
+}
+
+.movie-card:hover img {
+  filter: brightness(1.15);
+}
+
+.movie-card .info,
+.movie-card .movie-info {
+  padding: 1rem;
+  text-align: center;
+}
+
+.movie-card h3,
+.movie-card strong {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  letter-spacing: 0.5px;
+}
+
+.movie-card p,
+.movie-card small {
+  color: var(--text-gray);
+  font-size: 0.9rem;
+}
+
+/* Glossy hover line effect */
+.movie-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.8s ease;
+}
+
+.movie-card:hover::before {
+  left: 100%;
+}
+
+/* ===== ⭐ Buttons ===== */
+.login-btn,
+.rate-btn,
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  margin-top: 10px;
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--glow);
+}
+
+.login-btn:hover,
+.rate-btn:hover,
+.btn:hover {
+  background: var(--accent-color);
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(229, 9, 20, 0.9);
+}
+
+/* ===== 🎚️ Dropdown ===== */
+select {
+  background-color: #0d0d0d;
+  color: var(--text-light);
+  border: 1px solid var(--primary-color);
+  border-radius: 6px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  outline: none;
+  transition: box-shadow 0.3s ease, border 0.3s ease;
+}
+
+select:hover,
+select:focus {
+  box-shadow: var(--glow);
+  border-color: var(--accent-color);
+}
+
+/* ===== 🔐 Auth Pages ===== */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+
+.auth-box {
+  background: rgba(25, 25, 25, 0.95);
+  padding: 2rem;
+  width: 380px;
+  border-radius: 12px;
+  box-shadow: var(--glow);
+  text-align: center;
+  backdrop-filter: blur(6px);
+}
+
+.auth-container h2 {
+  color: var(--primary-color);
+  font-family: 'Bebas Neue';
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 8px rgba(229, 9, 20, 0.5);
+}
+
+.auth-container input {
+  width: 100%;
+  padding: 0.7rem;
+  margin: 12px 0;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background: #0d0d0d;
+  color: var(--text-light);
+  font-size: 1rem;
+}
+
+.auth-container input::placeholder {
+  color: var(--text-gray);
+}
+
+.auth-container button {
+  background: var(--primary-color);
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  padding: 0.8rem 2rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: var(--glow);
+}
+
+.auth-container button:hover {
+  background: var(--accent-color);
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(229, 9, 20, 0.9);
+}
+
+/* ===== ⚙️ Flash Messages / Cards ===== */
+.card {
+  background: rgba(30, 30, 30, 0.9);
+  border-left: 4px solid var(--primary-color);
+  padding: 1rem;
+  margin: 1rem auto;
+  border-radius: 6px;
+  color: var(--text-light);
+  width: 80%;
+  text-align: center;
+  animation: fadeIn 0.6s ease;
+}
+
+/* ===== ✨ Animations ===== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== 📱 Responsive ===== */
+@media (max-width: 768px) {
+  .navbar ul {
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .movie-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    padding: 2rem;
+  }
+
+  .auth-box {
+    width: 90%;
+  }
+
+  .navbar .brand h1 {
+    font-size: 1.6rem;
+  }
+}
+
+/* ===== 🎯 Recommendation Reason Styling ===== */
+.reason {
+  margin-top: 8px;
+  color: #ff6b6b;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-shadow: 0 0 10px rgba(229, 9, 20, 0.7);
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+}
+
+.reason::before {
+  content: "“";
+  color: #e50914;
+  font-size: 1.3rem;
+  vertical-align: text-top;
+  margin-right: 2px;
+  opacity: 0.7;
+}
+
+.reason::after {
+  content: "”";
+  color: #e50914;
+  font-size: 1.3rem;
+  vertical-align: text-top;
+  margin-left: 2px;
+  opacity: 0.7;
+}
+
+/* Hover effect for rec cards */
+.movie-card:hover .reason {
+  color: #ff8585;
+  text-shadow: 0 0 15px rgba(229, 9, 20, 1);
+}
+
+/* ===== 🪄 Section Title ===== */
+.section-title {
+  text-align: center;
+  margin-top: 2rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.4rem;
+  color: var(--primary-color);
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 12px rgba(229, 9, 20, 0.8);
+  animation: fadeIn 0.8s ease;
+}
+
+/* ===== 🕳️ Empty Message ===== */
+.empty-msg {
+  text-align: center;
+  margin-top: 3rem;
+  color: var(--text-gray);
+  font-size: 1.1rem;
+  font-style: italic;
+  opacity: 0.8;
+}
